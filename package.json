@@ -5,6 +5,7 @@
   "main": "./dist/main.js",
   "type": "commonjs",
   "scripts": {
+    "dev": "ts-node src/index.ts",
     "build": "tsc --noEmit && tsup",
     "postinstall": "prisma generate"
     "migrate:deploy": "prisma migrate deploy"
