@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc --noEmit && tsup",
     "postinstall": "prisma generate"
+    "migrate:deploy": "prisma migrate deploy"
     "start": "tsx ./src/main.ts",
     "start:prod": "node dist/main",
     "dev:server": "tsx watch ./src/main.ts",
