@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // or "mysql" depending on your DB
+  url      = env("DATABASE_URL")
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  name      String?
+  phone     String   @unique
+  messages  Message[]
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  contact    Contact? @relation(fields: [contactId], references: [id])
+  contactId  String?
+  text       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model MessageUpdate {
+  id        String   @id @default(cuid())
+  message   Message? @relation(fields: [messageId], references: [id])
+  messageId String?
+  status    String
+  updatedAt DateTime @default(now())
+}
+
+model Instance {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+}
+
+model IntegrationSession {
+  id        String   @id @default(cuid())
+  type      String
+  createdAt DateTime @default(now())
+}
+
+model Chatwoot {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+}
+
+model Dify {
+  id        String   @id @default(cuid())
+  setting   DifySetting?
+  createdAt DateTime @default(now())
+}
+
+model DifySetting {
+  id      String @id @default(cuid())
+  dify    Dify?  @relation(fields: [difyId], references: [id])
+  difyId  String?
+  key     String
+  value   String
+}
+
+model Evoai {
+  id        String   @id @default(cuid())
+  setting   EvoaiSetting?
+  createdAt DateTime @default(now())
+}
+
+model EvoaiSetting {
+  id     String @id @default(cuid())
+  evoai  Evoai? @relation(fields: [evoaiId], references: [id])
+  evoaiId String?
+  key    String
+  value  String
+}
+
+model EvolutionBot {
+  id        String   @id @default(cuid())
+  setting   EvolutionBotSetting?
+  createdAt DateTime @default(now())
+}
+
+model EvolutionBotSetting {
+  id         String @id @default(cuid())
+  evolution  EvolutionBot? @relation(fields: [evolutionId], references: [id])
+  evolutionId String?
+  key        String
+  value      String
+}
+
+model Flowise {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+}
+
+model N8n {
+  id        String   @id @default(cuid())
+  setting   N8nSetting?
+  createdAt DateTime @default(now())
+}
+
+model N8nSetting {
+  id     String @id @default(cuid())
+  n8n    N8n?   @relation(fields: [n8nId], references: [id])
+  n8nId  String?
+  key    String
+  value  String
+}
+
+model OpenaiBot {
+  id        String   @id @default(cuid())
+  setting   OpenaiSetting?
+  createdAt DateTime @default(now())
+}
+
+model OpenaiSetting {
+  id        String   @id @default(cuid())
+  openaiBot OpenaiBot? @relation(fields: [openaiId], references: [id])
+  openaiId  String?
+  key       String
+  value     String
+}
+
+model Typebot {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+}
+
+model Proxy {
+  id        String   @id @default(cuid())
+  host      String
+  port      Int
+  createdAt DateTime @default(now())
+}
